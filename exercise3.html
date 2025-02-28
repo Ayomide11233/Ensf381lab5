@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Lab5 - Exercise 1</title>
+</head>
+<body>
+    <input type="text" id="textInput" placeholder="Type something here..."/>
+    <label id="textLabel"></label>
+    <button id="redButton">Red</button>
+    <button id="blueButton">Blue</button>
+    <button id="greenButton">Green</button>
+    <button id="orangeButton">Orange</button>
+    <button id="purpleButton">Purple</button>
+</body>
+<script type="text/javascript">
+    const textbox = document.getElementById('textInput');
+    const label = document.getElementById('textLabel')
+    async function retrieveData(input)  {
+        const response = await fetch('https://67c1fda361d8935867e50324.mockapi.io/users_api');
+        const data = await response.json();
+        let output = ""
+
+        for (let i = 0; i < data.length; i++) {
+            console.log(data[i].id)
+            if (data[i].id == input) {
+                console.log(`Valid {ID: ${data[i].id}, Name: ${data[i].first_name}, Group: ${data[i].user_group}}`)
+                output = `ID: ${data[i].id}, Name: ${data[i].first_name}, Group: ${data[i].user_group}`
+                break;
+                // "ID:"  + data[i].id + "Name: "+ data[i].first_name + "Group: "+ data[i].user_group;
+            }
+
+            
+
+        };
+        return output
+    };
+
+
+    textbox.addEventListener('keypress', async(key) => {
+        if (key.code == 'Enter') {
+
+            console.log(textbox.value)
+            let input = parseInt(textbox.value)
+            
+            label.textContent = await retrieveData(input)
+
+            
+            textbox.value = ""
+
+
+           
+ 
+            
+            
+        }
+
+
+    });
+    const red = document.getElementById('redButton');
+    const blue = document.getElementById('blueButton');
+    const green = document.getElementById('greenButton');
+    const orange = document.getElementById('orangeButton');
+    const purple = document.getElementById('purpleButton');
+
+    red.addEventListener('click', () => {
+        label.style.color = 'red';
+    });
+    blue.addEventListener('click', () => {
+        label.style.color = 'blue';
+    });
+    green.addEventListener('click', () => {
+        label.style.color = 'green';
+    });
+    orange.addEventListener('click', () => {
+        label.style.color = 'orange';
+    });
+    purple.addEventListener('click', () => {
+        label.style.color = 'purple';
+    });
+
+  
+
+</script>
+</html>
